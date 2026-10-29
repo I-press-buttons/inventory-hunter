@@ -4,6 +4,7 @@ import os
 import requests
 
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 
 
 class HttpGetResponse:
@@ -21,14 +22,14 @@ class SeleniumDriver:
             raise Exception(f'not found: {self.driver_path}')
 
         self.options = webdriver.ChromeOptions()
-        self.options.headless = True
+        self.options.add_argument('--headless=new')
         if getpass.getuser() == 'root':
             self.options.add_argument('--no-sandbox')  # required if root
 
     def get(self, url):
         # headless chromium crashes somewhat regularly...
         # for now, we will start a fresh instance every time
-        driver = webdriver.Chrome(self.driver_path, options=self.options)
+        driver = webdriver.Chrome(service=Service(self.driver_path), options=self.options)
         try:
             driver.get(url)
             return HttpGetResponse(driver.page_source, url)

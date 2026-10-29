@@ -51,3 +51,10 @@ I sure hope this doesn't happen... 2020 is bad enough already. My hope is that i
 ### Do I really need Docker?
 
 No (but YMMV). If you know your way around python and pip/conda, then you should be able to replicate the environment I created using Docker.
+
+
+## Security updates (October 2026)
+
+Rebuild and recreate the image to adopt Python 3.12.16 on Debian Bookworm. Use a fresh base image so the distro Chromium/Chromedriver and CA packages are current. Existing images and browser processes are not patched by a source-only update.
+
+The Selenium driver uses the current Service API and explicit headless Chromium arguments. Validate without starting a browser using `PYTHONPATH=src python -m unittest discover -s tests -v`.
