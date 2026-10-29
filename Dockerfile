@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM python:3.12.16-bookworm
 RUN apt update
 RUN apt install -y chromium chromium-driver locales locales-all
 
